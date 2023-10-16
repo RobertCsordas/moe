@@ -1,0 +1,139 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+        {
+            "name": "Enwik8 RelTrafo PKM",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "enwik8_rel_trafo_kvmem", "--log", "tb", "--task", "enwik8_transformer",
+                     "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                    "--state_size", "256", "-transformer.encoder_n_layers", "6", "-transformer.n_heads", "8",
+                    "--dropout", "0.1", "--lr", "0.0001", "-lm.unroll", "128", "-batch_size", "64",
+                    "-grad_clip", "0.1", "-transformer.variant", "preln_kvmem",
+                    "-pkm.knn", "32", "-pkm.n_keys", "64", "-kvmem.linproj", "0", "-pkm.n_heads", "4",
+                    "-kvmem.head_merge_topk", "0", "-kvmem.load_balance", "0", "-kvmem.dropout", "early",
+                    "-amp", "1", "-transformer.activation", "softmax"]
+        },
+
+        {
+            "name": "Enwik8 RelTrafo 12L baseline",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "enwik8_rel_trafo_12l", "--log", "tb", "--task", "enwik8_transformer",
+                        "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                        "--state_size", "256", "-transformer.encoder_n_layers", "12", "-transformer.n_heads", "8",
+                        "--dropout", "0.1", "--lr", "0.0001", "-lm.unroll", "256", "-batch_size", "64",
+                        "-grad_clip", "0.1", "-transformer.variant", "preln_relative",
+                        "-transformer.ff_multiplier", "4", "-amp", "1"]
+        },
+
+
+        {
+            "name": "Enwik8 RelTrafo topk2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "enwik8_rel_trafo_topk2", "--log", "tb", "--task", "enwik8_transformer",
+                     "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                    "--state_size", "256", "-transformer.encoder_n_layers", "6", "-transformer.n_heads", "8",
+                    "--dropout", "0.1", "--lr", "0.0001", "-lm.unroll", "256", "-batch_size", "64",
+                    "-grad_clip", "0.1", "-transformer.variant", "preln_topk", "-transformer.topk_use_norm", "1",
+                    "-transformer.topk_value", "128"]
+        },
+
+
+
+        {
+            "name": "Enwik8 RelTrafo size match preln",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "enwik8_size_match", "--log", "tb", "--task", "enwik8_transformer",
+                     "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                    "--state_size", "512", "-transformer.encoder_n_layers", "12", "-transformer.n_heads", "8",
+                    "--dropout", "0.1", "--lr", "0.00025", "-lm.unroll", "256", "-batch_size", "22",
+                    "-grad_clip", "0.1", "-transformer.variant", "preln_relative",
+                    "-transformer.ff_multiplier", "4.01"]
+        },
+
+
+
+        {
+            "name": "Moe test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "wikitext103_moe_test", "--log", "tb", "--task", "wikitext103_sp_transformer",
+                     "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                    "--state_size", "412", "-transformer.encoder_n_layers", "8", "-transformer.n_heads", "10",
+                    "-transformer.head_projection_size", "41",
+                    "--dropout", "0.1", "--lr", "0.00025", "-lm.unroll", "256", "-batch_size", "64",
+                    "-grad_clip", "0.25", "-transformer.variant", "preln_moe",
+                    "-moe.n_experts","128", "-moe.expert_size", "128", "-pkm.knn", "0",
+                      "-transformer.p_drop_layer", "0", "-kvmem.standard_parallel", "0",
+                    "-moe.selection_mode", "sigmoid", "-moe.perplexity_reg", "0.01",
+                     "-amp", "1",  "-pkm.n_heads", "4",
+                     "-moe.norm_expert_sel_init", "1", "-moe.reg_type", "entropy",
+                     "-moe.perplexity_reg_mode", "global",
+                    "-lr_sched.type", "cos", "-stop_after", "100000",
+                    "-moe.drop_expert", "0.1", "-moe.activation_after_topk", "1"]
+        },
+
+        {
+            "name": "C4 test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "c4_moe_test", "--log", "tb", "--task", "c4_transformer",
+                     "--keep_alive", "1", "-reset", "1", "-test_interval", "2000",
+                    "--state_size", "412", "-transformer.encoder_n_layers", "8", "-transformer.n_heads", "10",
+                    "-transformer.head_projection_size", "41",
+                    "--dropout", "0.1", "--lr", "0.00025", "-lm.unroll", "256", "-batch_size", "64",
+                    "-grad_clip", "0.25", "-transformer.variant", "preln_moe",
+                    "-moe.n_experts","128", "-moe.expert_size", "128", "-pkm.knn", "0",
+                      "-transformer.p_drop_layer", "0", "-kvmem.standard_parallel", "0",
+                    "-moe.selection_mode", "sigmoid", "-moe.perplexity_reg", "0.01",
+                     "-amp", "1",  "-pkm.n_heads", "4",
+                     "-moe.norm_expert_sel_init", "1", "-moe.reg_type", "entropy",
+                     "-moe.perplexity_reg_mode", "global",
+                    "-lr_sched.type", "cos", "-stop_after", "100000",
+                    "-moe.drop_expert", "0.1", "-moe.activation_after_topk", "1", "-lmds.valid_ratio", "0.005"]
+        },
+
+
+
+        {
+            "name": "Analyze dense",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": ["--name", "analyze_dense", "--log", "tb", "--restore", "paper/checkpoints/btwb7k9x/model-100000.pth", "-reset", "1", "--test_only", "1", "-keep_alive", "1", "-val_log_details", "1", "-task", "wikitext103_sp_transformer_analyze"]
+        }
+
+        {
+            "type": "python",
+            "request": "launch",
+            "name": "Debug File",
+            "justMyCode": false,
+            "program": "${file}",
+            "cwd": "${fileDirname}"
+        },
+
+
+
+    ]
+}

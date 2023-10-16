@@ -1,0 +1,77 @@
+program: main.py
+command:
+  - ${env}
+  - python3
+  - ${program}
+  - ${args}
+method: grid
+metric:
+  name: validation/mean_accuracy
+  goal: maximize
+parameters:
+  name:
+    value: enwik8
+  log:
+    value: wandb
+  task:
+    value: enwik8_transformer
+  test_interval:
+    value: 2000
+  state_size:
+    value: 512
+  transformer.encoder_n_layers:
+    value: 12
+  transformer.n_heads:
+    value: 8
+  dropout:
+    value: 0.1
+  lr:
+    value: 0.00025
+  optimizer:
+    value: adamw
+  lm.unroll:
+    value: 512
+  batch_size:
+    value: 32
+  grad_clip:
+    value: 0.25
+  amp:
+    value: 1
+  save_interval:
+    value: 10000
+  transformer.variant:
+    value: preln_moe
+  stop_after:
+    value: 100000
+  moe.n_experts:
+    value: 16
+  moe.expert_size:
+    value: 128
+  pkm.knn:
+    value: 0
+  pkm.n_heads:
+    value: 1
+  kvmem.standard_parallel:
+    value: 0
+  transformer.p_drop_layer:
+    value: 0.0
+  moe.selection_mode:
+    value: gate
+  moe.reg_type:
+    value: switch
+  moe.perplexity_reg_mode:
+    value: global
+  moe.perplexity_reg:
+    value: 0.01
+  moe.norm_expert_sel_init:
+    value: 0
+  moe.expert_size_init:
+    value: 1
+  lr_sched.type:
+    value: cos
+  moe.init_scale:
+    value: 0.1
+  kvmem.dropout:
+    values:
+      - none
+      - score

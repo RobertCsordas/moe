@@ -1,0 +1,5 @@
+{
+  "wandb_project": "project",
+  "hostname": "",
+  "wandb_dir": "/data/project/wandb"
+}
