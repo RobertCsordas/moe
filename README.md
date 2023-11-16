@@ -1,6 +1,6 @@
 # Codebase for inspecting approximate 2 layer MLPs in transformers
 
-The official repository for our paper "Approximating Two-Layer Feedforward Networks for Efficient Transformers".
+The official repository for our paper "Approximating Two-Layer Feedforward Networks for Efficient Transformers" (https://arxiv.org/abs//2310.10837).
 
 Please note that this repository is a cleaned-up version of the internal research repository we use. In case you encounter any problems with it, please don't hesitate to contact me.
 
